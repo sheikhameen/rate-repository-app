@@ -6,10 +6,8 @@ const useRepositories = () => {
     fetchPolicy: "cache-and-network",
   });
 
-  const repositories = data.repositories;
-
   return {
-    repositories,
+    repositories: loading ? undefined : data.repositories,
     loading,
     refetch,
   };
