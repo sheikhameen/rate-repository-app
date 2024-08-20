@@ -7,7 +7,7 @@ const useRepositories = () => {
   });
 
   return {
-    repositories: loading ? undefined : data.repositories,
+    repositories: data?.repositories,
     loading,
     refetch,
   };
