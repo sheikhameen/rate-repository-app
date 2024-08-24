@@ -5,7 +5,7 @@ import Metrics from "./Metrics";
 
 const RepositoryItem = ({ repository }) => {
   return (
-    <View style={styles.container}>
+    <View testID="repositoryItem" style={styles.container}>
       <View style={styles.avatarAndDetails}>
         <Image
           style={styles.avatar}

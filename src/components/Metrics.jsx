@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import Text from "./Text";
+import formatToK from "../utils/formatToK";
 
 const Metrics = ({ counts }) => {
   return (
@@ -13,7 +14,7 @@ const Metrics = ({ counts }) => {
 
 const MetricCount = ({ label, count }) => {
   return (
-    <View style={styles.metric}>
+    <View style={styles.metric} testID={`metric-${label}`}>
       <Text fontSize="subheading" fontWeight="bold">
         {formatToK(count)}
       </Text>
@@ -23,14 +24,6 @@ const MetricCount = ({ label, count }) => {
     </View>
   );
 };
-
-function formatToK(number) {
-  if (number >= 1000) {
-    const formattedNumber = (number / 1000).toFixed(1);
-    return parseFloat(formattedNumber) + "k";
-  }
-  return number.toString();
-}
 
 const styles = StyleSheet.create({
   metricsContainer: {
