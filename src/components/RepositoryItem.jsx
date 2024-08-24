@@ -1,49 +1,37 @@
 import { View, Image, StyleSheet, Pressable } from "react-native";
-import { useParams } from "react-router-native";
-import { useQuery } from "@apollo/client";
 import * as Linking from "expo-linking";
-
-import { GET_REPOSITORY } from "../graphql/queries";
 import Metrics from "./Metrics";
 import theme from "../theme";
 import Text from "./Text";
 
 const RepositoryItem = ({ repository, showLink }) => {
-  const { id } = useParams();
-  const { data, loading, error } = useQuery(GET_REPOSITORY, {
-    skip: !id,
-    variables: { repositoryId: id },
-  });
-
-  const repo = id ? data?.repository : repository;
-
-  if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>Error: {error.message}</Text>;
-
   return (
     <View testID="repositoryItem" style={styles.container}>
       <View style={styles.avatarAndDetails}>
-        <Image style={styles.avatar} source={{ uri: repo.ownerAvatarUrl }} />
+        <Image
+          style={styles.avatar}
+          source={{ uri: repository.ownerAvatarUrl }}
+        />
         <View style={styles.details}>
           <Text fontSize="heading" fontWeight="bold">
-            {repo.fullName}
+            {repository.fullName}
           </Text>
-          <Text color="secondary">{repo.description}</Text>
-          <Text style={styles.languageTag}>{repo.language}</Text>
+          <Text color="secondary">{repository.description}</Text>
+          <Text style={styles.languageTag}>{repository.language}</Text>
         </View>
       </View>
       <Metrics
         counts={[
-          { label: "Stars", count: repo.stargazersCount },
-          { label: "Forks", count: repo.forksCount },
-          { label: "Reviews", count: repo.reviewCount },
-          { label: "Rating", count: repo.ratingAverage },
+          { label: "Stars", count: repository.stargazersCount },
+          { label: "Forks", count: repository.forksCount },
+          { label: "Reviews", count: repository.reviewCount },
+          { label: "Rating", count: repository.ratingAverage },
         ]}
       />
       {showLink && (
         <Pressable
           style={styles.linkButton}
-          onPress={() => Linking.openURL(repo.url)}
+          onPress={() => Linking.openURL(repository.url)}
         >
           <Text
             style={styles.linkButtonText}
