@@ -15,12 +15,17 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   const { data, loading } = useQuery(ME);
 
+  const loggedIn = !loading && data.me;
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab label="Repositories" path="/" />
-        {!loading && data.me ? (
-          <AppBarTab label="Sign Out" path="/signOut" />
+        {loggedIn ? (
+          <>
+            <AppBarTab label="Create a review" path="/review" />
+            <AppBarTab label="Sign Out" path="/signOut" />
+          </>
         ) : (
           <AppBarTab label="Sign In" path="/signIn" />
         )}
