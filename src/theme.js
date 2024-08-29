@@ -4,6 +4,7 @@ const theme = {
   colors: {
     textPrimary: "#24292e",
     textSecondary: "#586069",
+    textMuted: "#84878c",
     appBar: "#24292e",
     mainBackground: "#e1e4e8",
     border: "#a8aeb5",
