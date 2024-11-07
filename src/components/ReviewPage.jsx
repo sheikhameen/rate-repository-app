@@ -1,13 +1,13 @@
 import { Pressable, StyleSheet, View } from "react-native";
+import { useNavigate } from "react-router-native";
+import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 import Text from "./Text";
 import theme from "../theme";
 import TextInput from "./TextInput";
-import { useMutation } from "@apollo/client";
-import { CREATE_REVIEW } from "../graphql/queries";
-import { useNavigate } from "react-router-native";
+import { CREATE_REVIEW } from "../graphql/mutations";
 
 const validationSchema = yup.object().shape({
   ownerUsername: yup.string().required("Repository owner name is required"),
