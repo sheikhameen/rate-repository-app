@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
 import { useNavigate } from "react-router-native";
 import { useEffect } from "react";
 

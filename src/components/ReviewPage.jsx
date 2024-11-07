@@ -1,9 +1,4 @@
-import {
-  Pressable,
-  StyleSheet,
-  TextInput as TextInputNative,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -79,14 +74,14 @@ const ReviewForm = ({ onSubmit }) => {
 };
 
 const ReviewPage = () => {
-  const [createReview, result] = useMutation(CREATE_REVIEW);
+  const [createReview] = useMutation(CREATE_REVIEW);
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { ownerUsername, rating, repoName, review } = values;
 
     try {
-      const { data } = await createReview({
+      await createReview({
         variables: {
           review: {
             ownerName: ownerUsername,
