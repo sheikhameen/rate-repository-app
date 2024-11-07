@@ -67,7 +67,7 @@ const ReviewForm = ({ onSubmit }) => {
         multiline
       />
       <Pressable style={styles.submit} onPress={formik.handleSubmit}>
-        <Text style={styles.submitText}>Sign in</Text>
+        <Text style={styles.submitText}>Create a review</Text>
       </Pressable>
     </View>
   );
