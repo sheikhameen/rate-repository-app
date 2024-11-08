@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   const { data, loading } = useQuery(ME);
 
-  const loggedIn = !loading && data.me;
+  const loggedIn = !loading && data?.me;
 
   return (
     <View style={styles.container}>
