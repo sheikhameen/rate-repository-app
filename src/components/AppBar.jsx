@@ -24,6 +24,7 @@ const AppBar = () => {
         {loggedIn ? (
           <>
             <AppBarTab label="Create a review" path="/review" />
+            <AppBarTab label="My reviews" path="/my-reviews" />
             <AppBarTab label="Sign Out" path="/signOut" />
           </>
         ) : (
