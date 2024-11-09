@@ -7,11 +7,10 @@ const Button = ({ onPress, children, variant }) => {
   let backgroundColor = theme.colors.primary;
   if (variant === "destructive") backgroundColor = theme.colors.danger;
 
+  const pressableStyles = [styles.pressable, { backgroundColor }];
+
   return (
-    <Pressable
-      style={{ ...styles.pressable, backgroundColor }}
-      onPress={onPress}
-    >
+    <Pressable style={pressableStyles} onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
     </Pressable>
   );
