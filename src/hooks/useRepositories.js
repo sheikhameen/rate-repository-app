@@ -1,20 +1,35 @@
 import { useQuery } from "@apollo/client";
 import { ALL_REPOSITORIES } from "../graphql/queries";
 
-const useRepositories = ({ orderBy, orderDirection, searchKeyword }) => {
-  const { data, loading, refetch } = useQuery(ALL_REPOSITORIES, {
+const useRepositories = (variables) => {
+  const { data, loading, fetchMore, ...result } = useQuery(ALL_REPOSITORIES, {
+    variables,
     fetchPolicy: "cache-and-network",
-    variables: {
-      orderBy: orderBy || "CREATED_AT",
-      orderDirection: orderDirection || "DESC",
-      searchKeyword: searchKeyword || "",
-    },
   });
+
+  const handleFetchMore = () => {
+    // Check if data not loading and that the response has a next page
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+
+    // If not return
+    if (!canFetchMore) {
+      return;
+    }
+
+    // If yes, the use the fetchMore function, with the `after` variable, passing it the last endCursor, and any other variables.
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        ...variables,
+      },
+    });
+  };
 
   return {
     repositories: data?.repositories,
+    fetchMore: handleFetchMore,
     loading,
-    refetch,
+    ...result,
   };
 };
 

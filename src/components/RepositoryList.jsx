@@ -23,6 +23,7 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = ({
   repositories,
+  onEndReach,
   sortBy,
   setSortBy,
   searchKeyword,
@@ -37,6 +38,8 @@ export const RepositoryListContainer = ({
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
       ListHeaderComponent={
         <View>
           <Searchbar
@@ -69,15 +72,21 @@ const RepositoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchKeywordDebounced] = useDebounce(searchKeyword, 500);
 
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 8,
     orderBy: sortBy === "latest" ? "CREATED_AT" : "RATING_AVERAGE",
     orderDirection: sortBy === "lowest" ? "ASC" : "DESC",
     searchKeyword: searchKeywordDebounced,
   });
 
+  const onEndReach = () => {
+    fetchMore();
+  };
+
   return (
     <RepositoryListContainer
       repositories={repositories}
+      onEndReach={onEndReach}
       sortBy={sortBy}
       setSortBy={setSortBy}
       searchKeyword={searchKeyword}
